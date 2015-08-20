@@ -54,5 +54,13 @@ Vue.component('typeahead', {
     hit: function () {
       this.onHit(this.items[this.current])
     },
+
+    up: function () {
+      if (this.current > 0) this.current--
+    },
+
+    down: function () {
+      if (this.current < this.items.length-1) this.current++
+    }
   }
 })

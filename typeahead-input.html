@@ -1,4 +1,6 @@
 <input type="text"
        autocomplete="off"
        v-model="query"
-       v-on="input: update"/>
+       v-on="keydown: down|key 'down',
+             keydown: up|key 'up',
+             input: update"/>
