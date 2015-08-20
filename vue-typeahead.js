@@ -37,6 +37,11 @@ Vue.component('typeahead', {
 
   methods: {
     update: function () {
+      if (!this.query) {
+        this.reset()
+        return
+      }
+
       this.loading = true
 
       this.$http.get(this.src, {q:this.query})
