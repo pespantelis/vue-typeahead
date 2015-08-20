@@ -3,4 +3,6 @@
        v-model="query"
        v-on="keydown: down|key 'down',
              keydown: up|key 'up',
+             keydown: reset|key 'esc',
+             blur: reset,
              input: update"/>

@@ -43,6 +43,11 @@ Vue.component('typeahead', {
         }.bind(this))
     },
 
+    reset: function () {
+      this.items = []
+      this.query = ''
+    },
+
     setActive: function (index) {
       this.current = index
     },
