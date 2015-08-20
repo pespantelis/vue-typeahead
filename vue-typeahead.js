@@ -17,7 +17,8 @@ Vue.component('typeahead', {
     return {
       items: [],
       query: '',
-      current: 0
+      current: 0,
+      loading: false
     }
   },
 
@@ -36,16 +37,22 @@ Vue.component('typeahead', {
 
   methods: {
     update: function () {
+      this.loading = true
+
       this.$http.get(this.src, {q:this.query})
         .success(function (data) {
-          this.items = data
-          this.current = 0
+          if (this.loading) {
+            this.items = data
+            this.current = 0
+            this.loading = false
+          }
         }.bind(this))
     },
 
     reset: function () {
       this.items = []
       this.query = ''
+      this.loading = false
     },
 
     setActive: function (index) {
