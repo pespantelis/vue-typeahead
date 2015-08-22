@@ -46,6 +46,14 @@ Vue.component('typeahead', {
   computed: {
     hasItems: function () {
       return this.items.length > 0
+    },
+
+    isEmpty: function () {
+      return !this.query && !this.loading
+    },
+
+    isDirty: function () {
+      return !!this.query && !this.loading
     }
   },
 
