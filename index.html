@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vue Typeahead</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Typeahead component for Vue.js.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400|Dosis:300">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/vue-theme.css">
+    <link rel="stylesheet" href="css/typeahead.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Vue Typeahead</h1>
+        <h4>Typeahead component for Vue.js</h4>
+
+        <a href="https://github.com/pespantelis/vue-typeahead" class="button">Source on GitHub</a>
+
+        <div id="social">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-text="VueTypeahead - A @vuejs component" data-via="pespantelis">Tweet</a>
+            <iframe src="https://ghbtns.com/github-btn.html?user=pespantelis&repo=vue-typeahead&type=star&count=true" frameborder="0" scrolling="0" width="78px" height="20px"></iframe>
+        </div>
+
+        <typeahead src="http://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search" on-hit="{{goToProfile}}" limit="5" inline-template>
+            <div id="typeahead">
+                <i class="fa fa-search" v-show="isEmpty"></i>
+                <i class="fa fa-times" v-show="isDirty" v-on="click: reset"></i>
+                <i class="fa fa-spinner fa-spin" v-show="loading"></i>
+                <typeahead-input placeholder="Search twitter user"></typeahead-input>
+                <ul v-show="hasItems">
+                    <li v-repeat="items" v-class="active: isActive($index)" v-on="mousedown: hit, mousemove: setActive($index)">
+                        <span class="name" v-html="name"></span>
+                        <span class="screen-name" v-html="screen_name"></span>
+                    </li>
+                </ul>
+            </div>
+        </typeahead>
+        <a href="https://github.com/pespantelis/vue-typeahead/tree/gh-pages" id="source">source</a>
+    </div>
+
+    <script src="build/build.js"></script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</body>
+</html>
