@@ -28,8 +28,15 @@ Vue.component('typeahead', {
 
   components: {
     typeaheadInput: {
-      template: require('./typeahead-input.html'),
-      inherit: true
+      inherit: true,
+      template: `<input type="text"
+                        autocomplete="off"
+                        v-model="query"
+                        v-on="keydown: down|key 'down',
+                              keydown: up|key 'up',
+                              keydown: reset|key 'esc',
+                              blur: reset,
+                              input: update"/>`
     }
   },
 

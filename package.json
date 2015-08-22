@@ -3,7 +3,7 @@
     "dev": "webpack --watch"
   },
   "devDependencies": {
-    "html-loader": "^0.3.0",
+    "esnext-loader": "^1.0.0",
     "webpack": "^1.0.0"
   },
   "dependencies": {
