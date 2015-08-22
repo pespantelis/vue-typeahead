@@ -21,6 +21,13 @@ Vue.component('typeahead', {
     }
   },
 
+  components: {
+    typeaheadInput: {
+      template: require('./typeahead-input.html'),
+      inherit: true
+    }
+  },
+
   computed: {
     hasItems: function () {
       return this.items.length > 0
