@@ -34,6 +34,7 @@ Vue.component('typeahead', {
                         v-model="query"
                         v-on="keydown: down|key 'down',
                               keydown: up|key 'up',
+                              keydown: hit|key 'enter',
                               keydown: reset|key 'esc',
                               blur: reset,
                               input: update"/>`
