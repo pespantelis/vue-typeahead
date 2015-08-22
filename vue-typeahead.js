@@ -3,6 +3,10 @@ Vue.use(require('vue-resource'))
 
 Vue.component('typeahead', {
   props: {
+    limit: {
+      type: Number,
+      default: 0
+    },
     onHit: {
       type: Function,
       required: true
@@ -47,7 +51,7 @@ Vue.component('typeahead', {
       this.$http.get(this.src, {q:this.query})
         .success(function (data) {
           if (this.loading) {
-            this.items = data
+            this.items = !!this.limit ? data.slice(0, this.limit) : data
             this.current = 0
             this.loading = false
           }
