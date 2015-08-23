@@ -1,5 +1,17 @@
 {
+  "name": "vue-typeahead",
+  "version": "1.0.0",
+  "author": "Pantelis Peslis <pespantelis@gmail.com>",
   "license": "MIT",
+  "description": "Typeahead component for Vue.js",
+  "keywords": ["vue", "typeahead"],
+  "main": "vue-typeahead.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pespantelis/vue-typeahead.git"
+  },
+  "bugs": "https://github.com/pespantelis/vue-typeahead/issues",
+  "homepage": "http://pespantelis.github.io/vue-typeahead/",
   "scripts": {
     "dev": "webpack --watch"
   },
