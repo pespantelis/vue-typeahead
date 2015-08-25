@@ -7,6 +7,7 @@ See a live demo [here](http://pespantelis.github.io/vue-typeahead/).
 ### NPM
 Available through npm as `vue-typeahead`.
 ```js
+Vue.use(require('vue-resource'))
 require('vue-typeahead')
 ```
 

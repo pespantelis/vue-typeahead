@@ -1,6 +1,5 @@
 if (typeof require === 'function') {
   var Vue = require('vue')
-  Vue.use(require('vue-resource'))
 }
 
 Vue.component('typeahead', {
