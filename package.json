@@ -1,10 +1,13 @@
 {
   "name": "vue-typeahead",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Pantelis Peslis <pespantelis@gmail.com>",
   "license": "MIT",
   "description": "Typeahead component for Vue.js",
-  "keywords": ["vue", "typeahead"],
+  "keywords": [
+    "vue",
+    "typeahead"
+  ],
   "main": "vue-typeahead.js",
   "repository": {
     "type": "git",
