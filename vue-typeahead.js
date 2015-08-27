@@ -67,7 +67,7 @@ Vue.component('typeahead', {
 
       this.$http.get(this.src, {q:this.query})
         .success(function (data) {
-          if (this.loading) {
+          if (this.query) {
             this.items = !!this.limit ? data.slice(0, this.limit) : data
             this.current = 0
             this.loading = false
