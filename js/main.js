@@ -1,5 +1,6 @@
 var Vue = require('vue')
-require('./vue-typeahead')
+Vue.use(require('vue-resource'))
+require('vue-typeahead')
 
 new Vue({
   el: 'body',
