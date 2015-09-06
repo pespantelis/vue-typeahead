@@ -15,6 +15,9 @@ Vue.component('typeahead', {
       type: Function,
       required: true
     },
+    prepareData: {
+      type: Function
+    },
     src: {
       type: String,
       required: true
@@ -71,6 +74,7 @@ Vue.component('typeahead', {
       this.$http.get(this.src, Object.assign({q:this.query}, this.data))
         .success(function (data) {
           if (this.query) {
+            data = this.prepareData ? this.prepareData(data) : data
             this.items = !!this.limit ? data.slice(0, this.limit) : data
             this.current = 0
             this.loading = false
