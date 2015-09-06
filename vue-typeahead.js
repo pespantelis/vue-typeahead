@@ -4,6 +4,9 @@ if (typeof require === 'function') {
 
 Vue.component('typeahead', {
   props: {
+    data: {
+      type: Object
+    },
     limit: {
       type: Number,
       default: 0
@@ -65,7 +68,7 @@ Vue.component('typeahead', {
 
       this.loading = true
 
-      this.$http.get(this.src, {q:this.query})
+      this.$http.get(this.src, Object.assign({q:this.query}, this.data))
         .success(function (data) {
           if (this.query) {
             this.items = !!this.limit ? data.slice(0, this.limit) : data
