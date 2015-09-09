@@ -30,16 +30,16 @@ Then you can do this:
 ```
 > You should specify the `src` and `on-hit` attributes
 
-## Properties
+## Attributes
 **src:** The source url.
 
 **data** The data that would be send by request.
 
 **limit:** Limit the number of items which is shown at the list.
 
-**onHit:** The callback function which is triggered when the user hits on an item.
+**on-hit:** The callback function which is triggered when the user hits on an item.
 
-**prepareData** The callback function which is triggered when the response data are received.
+**prepare-data** The callback function which is triggered when the response data are received.
 
 ## Key Actions
 **Down Arrow:** Highlight the previous item.

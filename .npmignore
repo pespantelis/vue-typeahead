@@ -1,4 +1,5 @@
 /.idea
 /.editorconfig
 /.npmignore
+/build
 /webpack.config.js

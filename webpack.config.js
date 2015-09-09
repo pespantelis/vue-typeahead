@@ -1,8 +1,8 @@
 module.exports = {
-  entry: "./vue-typeahead.js",
+  entry: './vue-typeahead.js',
   output: {
     path: './build',
-    filename: "build.js"
+    filename: 'build.js'
   },
   module: {
     loaders: [
