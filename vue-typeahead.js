@@ -36,15 +36,7 @@ Vue.component('typeahead', {
   components: {
     typeaheadInput: {
       inherit: true,
-      template: `<input type="text"
-                        autocomplete="off"
-                        v-model="query"
-                        v-on="keydown: down|key 'down',
-                              keydown: up|key 'up',
-                              keydown: hit|key 'enter',
-                              keydown: reset|key 'esc',
-                              blur: reset,
-                              input: update"/>`
+      template: "<input type=\"text\" autocomplete=\"off\" v-model=\"query\" v-on=\"keydown: down|key 'down', keydown: up|key 'up', keydown: hit|key 'enter', keydown: reset|key 'esc', blur: reset, input: update\"/>"
     }
   },
 
