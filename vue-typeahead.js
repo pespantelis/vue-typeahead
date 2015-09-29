@@ -3,6 +3,7 @@ if (typeof require === 'function') {
 }
 
 Vue.component('typeahead', {
+  replace : false, // importent so I can attach a click event listener
   props: {
     data: {
       type: Object
@@ -27,6 +28,12 @@ Vue.component('typeahead', {
       required: true
     }
   },
+  attached : function() {
+    this.$el.addEventListener('click', this.clickRoot);
+  },
+  beforeDestroy : function() {
+    this.$el.removeEventListener('click', this.clickRoot);
+  },
 
   data: function () {
     return {
@@ -46,16 +53,23 @@ Vue.component('typeahead', {
     }
   },
   watch : {
-      query : function(v, o){
-        if (v && v.length > this.min)
-          this.update();
-        else {
-          this.loading = false;
-          if (!!o && !v){
-            this.onReset()
-          }
+    query : function(v, o){
+      if (v && v.length > this.min)
+        this.update();
+      else {
+        this.loading = false;
+        if (!!o && !v){
+          this.onReset()
         }
       }
+    },
+    show : function (v, o) {
+      if (this.show) {
+          window.document.addEventListener('click', this.outSideClickEvent);
+      } else {
+          window.document.removeEventListener('click', this.outSideClickEvent);
+      }
+    }
   },
   computed: {
     hasItems: function () {
@@ -70,7 +84,6 @@ Vue.component('typeahead', {
       return !!this.query && !this.loading;
     }
   },
-
   methods: {
     update: function () {
       if (!this.query) {
@@ -119,7 +132,7 @@ Vue.component('typeahead', {
       return this.current == index;
     },
 
-    focus: function(){
+    focus: function(e){
       if (this.items.length > 0)
         this.show = true;
     },
@@ -138,6 +151,16 @@ Vue.component('typeahead', {
 
     down: function () {
       if (this.current < this.items.length-1) this.current++
+    },
+
+    clickRoot : function(e){
+      if (this.show)
+        e.stopPropagation();
+    },
+
+    outSideClickEvent : function(event) {
+      this.show = false;
     }
+
   }
 })
