@@ -4,12 +4,17 @@ if (typeof require === 'function') {
 
 Vue.component('typeahead', {
   props: {
-    data: {
-      type: Object
+    query: {
+      type: String,
+      twoWay: true,
+      default: ""
+    },
+    placeholder: {
+      type: String,
     },
     limit: {
       type: Number,
-      default: 0
+      default: 5
     },
     onHit: {
       type: Function,
@@ -27,18 +32,20 @@ Vue.component('typeahead', {
   data: function () {
     return {
       items: [],
-      query: '',
       current: 0,
       loading: false
     }
   },
 
-  components: {
-    typeaheadInput: {
-      inherit: true,
-      template: "<input type=\"text\" autocomplete=\"off\" v-model=\"query\" v-on=\"keydown: down|key 'down', keydown: up|key 'up', keydown: hit|key 'enter', keydown: reset|key 'esc', blur: reset, input: update\"/>"
-    }
-  },
+  template: 
+      `<div class="tt">
+          <input class="typeahead" type="text" autocomplete="off" v-model="query" placeholder={{placeholder}} @keydown.down="down" @keydown.up="up" @keyup.enter="hit" @input="update" @keyup.esc="reset" @blur="reset"/>
+          <ul v-show="hasItems">
+            <li v-for="item in items" track-by="$index" :class="{active: isActive($index)}" @mousedown="hit", @mousemove="setActive($index)">
+                {{item}}
+            </li>
+          </ul>
+      </div>`,
 
   computed: {
     hasItems: function () {
@@ -63,15 +70,17 @@ Vue.component('typeahead', {
 
       this.loading = true
 
-      this.$http.get(this.src, Object.assign({q:this.query}, this.data))
-        .success(function (data) {
-          if (this.query) {
-            data = this.prepareData ? this.prepareData(data) : data
-            this.items = !!this.limit ? data.slice(0, this.limit) : data
-            this.current = 0
-            this.loading = false
-          }
-        }.bind(this))
+      var xhr = new XMLHttpRequest()
+      var courses = [];
+      xhr.open('GET', this.src + this.query)
+      xhr.onload = function () {
+          data = JSON.parse(xhr.responseText)
+          data = this.prepareData ? this.prepareData(data) : data
+          this.items = !!this.limit ? data.slice(0, this.limit) : data
+          this.loading = false;
+          this.current = 0;
+        }.bind(this)
+      xhr.send()
     },
 
     reset: function () {
@@ -100,4 +109,4 @@ Vue.component('typeahead', {
       if (this.current < this.items.length-1) this.current++
     }
   }
-})
+});

@@ -17,27 +17,17 @@ You can also directly include it with a `<script>` tag when you have included Vu
 ## Use in templates
 Then you can do this:
 ```html
-<typeahead src="..." on-hit="{{goToPlace}}" limit="5" inline-template>
-    <div>
-        <typeahead-input></typeahead-input>
-        <ul v-show="hasItems">
-            <li v-repeat="items" v-class="active: isActive($index)" v-on="mousedown: hit, mousemove: setActive($index)">
-                <span v-html="name"></span>
-            </li>
-        </ul>
-    </div>
-</typeahead>
+<typeahead src="..." :on-hit="{{goToPlace}}"></typeahead>
 ```
-> You should specify the `src` and `on-hit` attributes
 
 ## Attributes
-**src:** The source url.
+**src (required):** The source url.
 
 **data** The data that would be send by request.
 
-**limit:** Limit the number of items which is shown at the list.
+**limit:** Limit the number of items shown in the list. Default: 5.
 
-**on-hit:** The callback function which is triggered when the user hits on an item.
+**on-hit(required):** The callback function which is triggered when the user hits on an item.
 
 **prepare-data** The callback function which is triggered when the response data are received.
 
