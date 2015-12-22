@@ -38,7 +38,7 @@ Vue.component('typeahead', {
   },
 
   template: 
-      `<div class="tt">
+      `<div>
           <input class="typeahead" type="text" autocomplete="off" v-model="query" placeholder={{placeholder}} @keydown.down="down" @keydown.up="up" @keyup.enter="hit" @input="update" @keyup.esc="reset" @blur="reset"/>
           <ul v-show="hasItems">
             <li v-for="item in items" track-by="$index" :class="{active: isActive($index)}" @mousedown="hit", @mousemove="setActive($index)">
