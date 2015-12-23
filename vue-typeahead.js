@@ -1,6 +1,4 @@
-if (typeof require === 'function') {
-  var Vue = require('vue')
-}
+import Vue from 'vue'
 
 Vue.component('typeahead', {
   props: {
@@ -24,7 +22,7 @@ Vue.component('typeahead', {
     }
   },
 
-  data: function () {
+  data () {
     return {
       items: [],
       query: '',
@@ -41,21 +39,21 @@ Vue.component('typeahead', {
   },
 
   computed: {
-    hasItems: function () {
+    hasItems () {
       return this.items.length > 0
     },
 
-    isEmpty: function () {
+    isEmpty () {
       return !this.query && !this.loading
     },
 
-    isDirty: function () {
+    isDirty () {
       return !!this.query && !this.loading
     }
   },
 
   methods: {
-    update: function () {
+    update () {
       if (!this.query) {
         this.reset()
         return
@@ -74,29 +72,29 @@ Vue.component('typeahead', {
         }.bind(this))
     },
 
-    reset: function () {
+    reset () {
       this.items = []
       this.query = ''
       this.loading = false
     },
 
-    setActive: function (index) {
+    setActive (index) {
       this.current = index
     },
 
-    isActive: function (index) {
+    isActive (index) {
       return this.current == index
     },
 
-    hit: function () {
+    hit () {
       this.onHit(this.items[this.current])
     },
 
-    up: function () {
+    up () {
       if (this.current > 0) this.current--
     },
 
-    down: function () {
+    down () {
       if (this.current < this.items.length-1) this.current++
     }
   }

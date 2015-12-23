@@ -6,7 +6,12 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'esnext' }
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: { presets: ['es2015'] }
+      }
     ]
   },
   devtool: '#source-map'
