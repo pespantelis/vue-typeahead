@@ -1,6 +1,4 @@
-import Vue from 'vue'
-
-Vue.component('typeahead', {
+export default {
   props: {
     data: {
       type: Object
@@ -98,4 +96,4 @@ Vue.component('typeahead', {
       if (this.current < this.items.length-1) this.current++
     }
   }
-})
+}
