@@ -1,25 +1,4 @@
 export default {
-  props: {
-    data: {
-      type: Object
-    },
-    limit: {
-      type: Number,
-      default: 0
-    },
-    onHit: {
-      type: Function,
-      required: true
-    },
-    prepareData: {
-      type: Function
-    },
-    src: {
-      type: String,
-      required: true
-    }
-  },
-
   data () {
     return {
       items: [],
