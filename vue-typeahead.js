@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export default {
   data () {
     return {
@@ -5,6 +7,20 @@ export default {
       query: '',
       current: 0,
       loading: false
+    }
+  },
+
+  ready () {
+    if (! this.$http) {
+      this.warn('`vue-resource` plugin')
+    }
+
+    if (! this.src) {
+      this.warn('`src` property')
+    }
+
+    if (! this.onHit) {
+      this.warn('`onHit` method')
     }
   },
 
@@ -23,6 +39,10 @@ export default {
   },
 
   methods: {
+    warn (msg) {
+      Vue.util.warn('Typeahead requires the ' + msg)
+    },
+
     update () {
       if (!this.query) {
         this.reset()
