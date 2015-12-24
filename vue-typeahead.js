@@ -30,11 +30,11 @@ export default {
     },
 
     isEmpty () {
-      return !this.query && !this.loading
+      return !this.query
     },
 
     isDirty () {
-      return !!this.query && !this.loading
+      return !!this.query
     }
   },
 
@@ -44,7 +44,7 @@ export default {
     },
 
     update () {
-      if (!this.query) {
+      if (! this.query) {
         this.reset()
         return
       }
@@ -73,8 +73,10 @@ export default {
       this.current = index
     },
 
-    isActive (index) {
-      return this.current == index
+    activeClass (index) {
+      return {
+        active: this.current == index
+      }
     },
 
     hit () {
