@@ -1,0 +1,27 @@
+<div class="typeahead">
+
+    <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+    <template v-else>
+        <i class="fa fa-search" v-show="isEmpty"></i>
+        <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
+    </template>
+
+    <input type="text"
+           placeholder="Search twitter user"
+           autocomplete="off"
+           v-model="query"
+           @keydown.down="down"
+           @keydown.up="up"
+           @keydown.enter="hit"
+           @keydown.esc="reset"
+           @blur="reset"
+           @input="update"/>
+
+    <ul v-show="hasItems">
+        <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
+            <span class="name" v-text="item.name"></span>
+            <span class="screen-name" v-text="item.screen_name"></span>
+        </li>
+    </ul>
+
+</div>

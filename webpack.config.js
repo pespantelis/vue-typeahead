@@ -6,7 +6,12 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'esnext' }
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        query: { presets: ['es2015'] }
+      },
+      { test: /\.html$/, loader: 'html-loader' }
     ]
   }
 }

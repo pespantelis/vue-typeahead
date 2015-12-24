@@ -22,20 +22,7 @@
             <iframe src="https://ghbtns.com/github-btn.html?user=pespantelis&repo=vue-typeahead&type=star&count=true" frameborder="0" scrolling="0" width="78px" height="20px"></iframe>
         </div>
 
-        <typeahead src="http://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search" on-hit="{{goToProfile}}" limit="5" inline-template>
-            <div id="typeahead">
-                <i class="fa fa-search" v-show="isEmpty"></i>
-                <i class="fa fa-times" v-show="isDirty" v-on="click: reset"></i>
-                <i class="fa fa-spinner fa-spin" v-show="loading"></i>
-                <typeahead-input placeholder="Search twitter user"></typeahead-input>
-                <ul v-show="hasItems">
-                    <li v-repeat="items" v-class="active: isActive($index)" v-on="mousedown: hit, mousemove: setActive($index)">
-                        <span class="name" v-html="name"></span>
-                        <span class="screen-name" v-html="screen_name"></span>
-                    </li>
-                </ul>
-            </div>
-        </typeahead>
+        <typeahead></typeahead>
         <a href="https://github.com/pespantelis/vue-typeahead/tree/gh-pages" id="source">source</a>
     </div>
 
