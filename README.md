@@ -2,44 +2,90 @@
 
 See a live demo [here](http://pespantelis.github.io/vue-typeahead/).
 
-## Usage
+## Install
 
-### NPM
+#### NPM
 Available through npm as `vue-typeahead`.
+```
+npm install --save vue-typeahead
+```
+> Also, you need to install the [`vue-resource`](https://github.com/vuejs/vue-resource) plugin.
+
+## Configuration
 ```js
-Vue.use(require('vue-resource'))
-require('vue-typeahead')
+import VueTypeaheadMixin from 'vue-typeahead'
+import VueTypeaheadTemplate from '...'
+
+Vue.component('typeahead', {
+  template: VueTypeaheadTemplate,     // optional if you use inline-template
+  mixins: [VueTypeaheadMixin],
+  data () {
+    return {
+      src: '...',                     // required
+      data: {},                       // optional
+      limit: 5,                       // optional
+      onHit (item) {                  // required
+        // ...
+      },
+      prepareResponseData (data) {    // optional
+        // data = ...
+        return data;
+      }
+    }
+  }
+});
 ```
 
-### Direct include
-You can also directly include it with a `<script>` tag when you have included Vue and VueResource globally.
-
 ## Use in templates
-Then you can do this:
+
+#### Import template
+You could import the template by set the `template` key like above.
+
+#### Inline template
 ```html
-<typeahead src="..." on-hit="{{goToPlace}}" limit="5" inline-template>
-    <div>
-        <typeahead-input></typeahead-input>
+<typeahead inline-template>
+    <div class="typeahead">
+        <!-- optional indicators -->
+        <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+        <template v-else>
+            <i class="fa fa-search" v-show="isEmpty"></i>
+            <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
+        </template>
+
+        <!-- the input field -->
+        <input type="text"
+               placeholder="..."
+               autocomplete="off"
+               v-model="query"
+               @keydown.down="down"
+               @keydown.up="up"
+               @keydown.enter="hit"
+               @keydown.esc="reset"
+               @blur="reset"
+               @input="update"/>
+
+        <!-- the list -->
         <ul v-show="hasItems">
-            <li v-repeat="items" v-class="active: isActive($index)" v-on="mousedown: hit, mousemove: setActive($index)">
-                <span v-html="name"></span>
+            <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
+                <span class="name" v-text="item.name"></span>
             </li>
         </ul>
     </div>
 </typeahead>
 ```
-> You should specify the `src` and `on-hit` attributes
 
-## Attributes
+## Options
+**template:** Import template from separate file.
+
 **src:** The source url.
 
-**data** The data that would be send by request.
+**data** The data that would be sent by request.
 
 **limit:** Limit the number of items which is shown at the list.
 
-**on-hit:** The callback function which is triggered when the user hits on an item.
+**onHit:** The callback function which is triggered when the user hits on an item.
 
-**prepare-data** The callback function which is triggered when the response data are received.
+**prepareResponseData** The callback function which is triggered when the response data are received.
 
 ## Key Actions
 **Down Arrow:** Highlight the previous item.
@@ -59,4 +105,4 @@ Then you can do this:
 > Useful if you want to add icon indicators (see the demo)
 
 ## License
-VueTypeahead is released under the MIT Licence. See the bundled LICENSE file for details.
+VueTypeahead is released under the MIT License. See the bundled LICENSE file for details.
