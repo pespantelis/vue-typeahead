@@ -57,7 +57,7 @@ export default {
             var data = response.data
             data = this.prepareResponseData ? this.prepareResponseData(data) : data
             this.items = !!this.limit ? data.slice(0, this.limit) : data
-            this.current = 0
+            this.current = null
             this.loading = false
           }
         }.bind(this))
@@ -84,11 +84,17 @@ export default {
     },
 
     up () {
-      if (this.current > 0) this.current--
+      if (this.current > 0)
+        this.current--
+      else
+        this.current = null
     },
 
     down () {
-      if (this.current < this.items.length-1) this.current++
+      if (null === this.current)
+        this.current = 0
+      else if (this.current < this.items.length-1)
+        this.current++
     }
   }
 }
