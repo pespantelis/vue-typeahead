@@ -27,5 +27,8 @@
   "dependencies": {
     "vue": "^1.0.12",
     "vue-resource": "^0.5.1"
+  },
+  "browserify": {
+    "transform": [["babelify", { "presets": ["es2015"] }]]
   }
 }
