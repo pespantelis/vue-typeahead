@@ -1,6 +1,6 @@
 {
   "name": "vue-typeahead",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Pantelis Peslis <pespantelis@gmail.com>",
   "license": "MIT",
   "description": "Typeahead component for Vue.js",
@@ -29,6 +29,15 @@
     "vue-resource": "^0.5.1"
   },
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   }
 }
