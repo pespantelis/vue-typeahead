@@ -5,7 +5,7 @@ export default {
     return {
       items: [],
       query: '',
-      current: 0,
+      current: -1,
       loading: false
     }
   },
@@ -57,7 +57,7 @@ export default {
             var data = response.data
             data = this.prepareResponseData ? this.prepareResponseData(data) : data
             this.items = !!this.limit ? data.slice(0, this.limit) : data
-            this.current = 0
+            this.current = -1
             this.loading = false
           }
         }.bind(this))
@@ -80,15 +80,25 @@ export default {
     },
 
     hit () {
+      if (this.current === -1) return
+
       this.onHit(this.items[this.current])
     },
 
     up () {
-      if (this.current > 0) this.current--
+      if (this.current > 0)
+        this.current--
+      else if (this.current == -1)
+        this.current = this.items.length - 1
+      else
+        this.current = -1
     },
 
     down () {
-      if (this.current < this.items.length-1) this.current++
+      if (this.current < this.items.length-1)
+        this.current++
+      else
+        this.current = -1
     }
   }
 }
