@@ -19,6 +19,10 @@ export default {
       this.warn('`src` property')
     }
 
+    if (this.limit && this.limit !== parseInt(this.limit, 10)) {
+      this.warn('`limit` method to be an integer')
+    }
+
     if (this.minChars && this.minChars !== parseInt(this.minChars, 10)) {
       this.warn('`minChars` method to be an integer')
     }
