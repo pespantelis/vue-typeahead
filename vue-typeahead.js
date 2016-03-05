@@ -19,6 +19,14 @@ export default {
       this.warn('`src` property')
     }
 
+    if (this.limit && this.limit !== parseInt(this.limit, 10)) {
+      this.warn('`limit` method to be an integer')
+    }
+
+    if (this.minChars && this.minChars !== parseInt(this.minChars, 10)) {
+      this.warn('`minChars` method to be an integer')
+    }
+
     if (! this.onHit) {
       this.warn('`onHit` method')
     }
@@ -46,6 +54,10 @@ export default {
     update () {
       if (! this.query) {
         this.reset()
+        return
+      }
+
+      if (this.minChars && this.query.length <= this.minChars) {
         return
       }
 

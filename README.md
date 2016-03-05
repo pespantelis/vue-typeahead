@@ -24,6 +24,7 @@ Vue.component('typeahead', {
       src: '...',                     // required
       data: {},                       // optional
       limit: 5,                       // optional
+      minChars: 3,                    // optional
       onHit (item) {                  // required
         // ...
       },
