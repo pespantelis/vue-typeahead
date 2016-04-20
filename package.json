@@ -16,28 +16,28 @@
   "bugs": "https://github.com/pespantelis/vue-typeahead/issues",
   "homepage": "http://pespantelis.github.io/vue-typeahead/",
   "scripts": {
-    "dev": "webpack --watch"
-  },
-  "devDependencies": {
-    "babel": "^6.3.26",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "webpack": "^1.0.0"
+    "dev": "webpack-dev-server --content-base demo/ --inline --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "dist": "rollup src/main.js -o dist/vue-typeahead.js -f cjs"
   },
   "dependencies": {
-    "vue": "^1.0.12",
-    "vue-resource": "^0.5.1"
+    "babel-runtime": "^6.0.0",
+    "vue": "^1.0.21",
+    "vue-resource": "^0.7.0"
   },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-plugin-transform-runtime": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-2": "^6.0.0",
+    "cross-env": "^1.0.6",
+    "css-loader": "^0.23.0",
+    "vue-hot-reload-api": "^1.2.0",
+    "vue-html-loader": "^1.0.0",
+    "vue-loader": "^8.3.0",
+    "vue-style-loader": "^1.0.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
   }
 }

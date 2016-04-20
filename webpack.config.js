@@ -1,18 +1,45 @@
+var webpack = require('webpack')
+
 module.exports = {
-  entry: './vue-typeahead.js',
+  entry: './demo/main.js',
   output: {
-    path: './build',
+    path: './demo/build',
+    publicPath: '/build/',
     filename: 'build.js'
   },
   module: {
     loaders: [
       {
+        test: /\.vue$/,
+        loader: 'vue'
+      },
+      {
         test: /\.js$/,
-        exclude: /node_modules/,
         loader: 'babel',
-        query: { presets: ['es2015'] }
+        exclude: /node_modules/
       }
     ]
   },
-  devtool: '#source-map'
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true
+  },
+  devtool: '#eval-source-map'
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin()
+  ])
 }
