@@ -12,14 +12,6 @@ export default {
   },
 
   ready () {
-    if (! this.$http) {
-      this.warn('`vue-resource` plugin')
-    }
-
-    if (! this.src) {
-      this.warn('`src` property')
-    }
-
     if (! this.onHit) {
       this.warn('`onHit` method')
     }
@@ -52,20 +44,33 @@ export default {
 
       this.loading = true
 
+      this.fetch().then((response) => {
+        if (this.query) {
+          let data = response.data
+          data = this.prepareResponseData ? this.prepareResponseData(data) : data
+          this.items = this.limit ? data.slice(0, this.limit) : data
+          this.current = -1
+          this.loading = false
+        }
+      })
+    },
+
+    fetch () {
+      if (!this.$http) {
+        this.warn('`vue-resource` plugin')
+        return
+      }
+
+      if (!this.src) {
+        this.warn('`src` property')
+        return
+      }
+
       let queryParam = {
         [this.queryParamName]: this.query
       }
 
-      this.$http.get(this.src, Object.assign(queryParam, this.data))
-        .then(function (response) {
-          if (this.query) {
-            var data = response.data
-            data = this.prepareResponseData ? this.prepareResponseData(data) : data
-            this.items = !!this.limit ? data.slice(0, this.limit) : data
-            this.current = -1
-            this.loading = false
-          }
-        }.bind(this))
+      return this.$http.get(this.src, Object.assign(queryParam, this.data))
     },
 
     reset () {
