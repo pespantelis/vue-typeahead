@@ -6,7 +6,8 @@ export default {
       items: [],
       query: '',
       current: -1,
-      loading: false
+      loading: false,
+      queryParamName: 'q'
     }
   },
 
@@ -51,7 +52,11 @@ export default {
 
       this.loading = true
 
-      this.$http.get(this.src, Object.assign({q:this.query}, this.data))
+      let queryParam = {
+        [this.queryParamName]: this.query
+      }
+
+      this.$http.get(this.src, Object.assign(queryParam, this.data))
         .then(function (response) {
           if (this.query) {
             var data = response.data
