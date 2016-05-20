@@ -37,8 +37,9 @@ export default {
 
   data () {
     return {
+      src: 'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search',
       limit: 5,
-      src: 'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search'
+      minChars: 3
     }
   },
 
@@ -52,7 +53,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 .Typeahead {
   position: relative;
 }

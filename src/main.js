@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { util } from 'vue'
 
 export default {
   data () {
@@ -8,12 +8,6 @@ export default {
       current: -1,
       loading: false,
       queryParamName: 'q'
-    }
-  },
-
-  ready () {
-    if (! this.onHit) {
-      this.warn('`onHit` method')
     }
   },
 
@@ -32,14 +26,9 @@ export default {
   },
 
   methods: {
-    warn (msg) {
-      Vue.util.warn('Typeahead requires the ' + msg)
-    },
-
     update () {
-      if (! this.query) {
-        this.reset()
-        return
+      if (!this.query) {
+        return this.reset()
       }
 
       if (this.minChars && this.query.length < this.minChars) {
@@ -61,13 +50,11 @@ export default {
 
     fetch () {
       if (!this.$http) {
-        this.warn('`vue-resource` plugin')
-        return
+        return util.warn('You need to install the `vue-resource` plugin', this)
       }
 
       if (!this.src) {
-        this.warn('`src` property')
-        return
+        return util.warn('You need to set the `src` property', this)
       }
 
       let queryParam = {
@@ -94,25 +81,31 @@ export default {
     },
 
     hit () {
-      if (this.current === -1) return
-
-      this.onHit(this.items[this.current])
+      if (this.current !== -1) {
+        this.onHit(this.items[this.current])
+      }
     },
 
     up () {
-      if (this.current > 0)
+      if (this.current > 0) {
         this.current--
-      else if (this.current == -1)
+      } else if (this.current == -1) {
         this.current = this.items.length - 1
-      else
+      } else {
         this.current = -1
+      }
     },
 
     down () {
-      if (this.current < this.items.length-1)
+      if (this.current < this.items.length-1) {
         this.current++
-      else
+      } else {
         this.current = -1
+      }
+    },
+
+    onHit () {
+      util.warn('You need to implement the `onHit` method', this)
     }
   }
 }
