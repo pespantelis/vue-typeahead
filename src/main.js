@@ -42,6 +42,10 @@ export default {
         return
       }
 
+      if (this.minChars && this.query.length < this.minChars) {
+        return
+      }
+
       this.loading = true
 
       this.fetch().then((response) => {
