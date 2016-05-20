@@ -11,81 +11,96 @@ npm install --save vue-typeahead
 ```
 > Also, you need to install the [`vue-resource`](https://github.com/vuejs/vue-resource) plugin.
 
-## Configuration
-```js
-import VueTypeaheadMixin from 'vue-typeahead'
-import VueTypeaheadTemplate from '...'
+## Usage
+If you are using `vue@1.0.22+`, you could use the new [`extends`](http://vuejs.org/api/#extends) property (see below).
 
-Vue.component('typeahead', {
-  template: VueTypeaheadTemplate,     // optional if you use inline-template
-  mixins: [VueTypeaheadMixin],
+Otherwise, the `mixins` way also works.
+
+```html
+<template>
+  <div>
+    <!-- optional indicators -->
+    <i class="fa fa-spinner fa-spin" v-if="loading"></i>
+    <template v-else>
+      <i class="fa fa-search" v-show="isEmpty"></i>
+      <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
+    </template>
+
+    <!-- the input field -->
+    <input type="text"
+           placeholder="..."
+           autocomplete="off"
+           v-model="query"
+           @keydown.down="down"
+           @keydown.up="up"
+           @keydown.enter="hit"
+           @keydown.esc="reset"
+           @blur="reset"
+           @input="update"/>
+
+    <!-- the list -->
+    <ul v-show="hasItems">
+      <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
+        <span v-text="item.name"></span>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import VueTypeahead from 'vue-typeahead'
+
+export default {
+  extends: VueTypeahead, // vue@1.0.22+
+  // mixins: [VueTypeahead], // vue@1.0.21-
+
   data () {
     return {
-      src: '...',                     // required
-      data: {},                       // optional
-      limit: 5,                       // optional
-      onHit (item) {                  // required
-        // ...
-      },
-      prepareResponseData (data) {    // optional
-        // data = ...
-        return data;
-      }
+      // The source url
+      // (required)
+      src: '...',
+
+      // The data that would be sent by request
+      // (optional)
+      data: {},
+
+      // Limit the number of items which is shown at the list
+      // (optional)
+      limit: 5,
+
+      // The minimum character length needed before triggering
+      // (optional)
+      minChars: 3,
+
+      // Override the default value (`q`) of query parameter name
+      // (optional)
+      queryParamName: 'search'
+    }
+  },
+
+  methods: {
+    // The callback function which is triggered when the user hits on an item
+    // (required)
+    onHit (item) {
+      // alert(item)
+    },
+
+    // The callback function which is triggered when the response data are received
+    // (optional)
+    prepareResponseData (data) {
+      // data = ...
+      return data
     }
   }
-});
+}
+</script>
+
+<style>
+  li.active {
+    /* ... */
+  }
+</style>
 ```
-
-## Use in templates
-
-#### Import template
-You could import the template by set the `template` key like above.
-
-#### Inline template
-```html
-<typeahead inline-template>
-    <div class="typeahead">
-        <!-- optional indicators -->
-        <i class="fa fa-spinner fa-spin" v-if="loading"></i>
-        <template v-else>
-            <i class="fa fa-search" v-show="isEmpty"></i>
-            <i class="fa fa-times" v-show="isDirty" @click="reset"></i>
-        </template>
-
-        <!-- the input field -->
-        <input type="text"
-               placeholder="..."
-               autocomplete="off"
-               v-model="query"
-               @keydown.down="down"
-               @keydown.up="up"
-               @keydown.enter="hit"
-               @keydown.esc="reset"
-               @blur="reset"
-               @input="update"/>
-
-        <!-- the list -->
-        <ul v-show="hasItems">
-            <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
-                <span class="name" v-text="item.name"></span>
-            </li>
-        </ul>
-    </div>
-</typeahead>
-```
-
-## Options
-**template:** Import template from separate file.
-
-**src:** The source url.
-
-**data** The data that would be sent by request.
-
-**limit:** Limit the number of items which is shown at the list.
-
-**onHit:** The callback function which is triggered when the user hits on an item.
-
-**prepareResponseData** The callback function which is triggered when the response data are received.
 
 ## Key Actions
 **Down Arrow:** Highlight the previous item.
