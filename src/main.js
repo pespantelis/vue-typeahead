@@ -63,7 +63,7 @@ export default {
       }
 
       if(this.isRestful){
-        return this.$http.get(this.src + '/' + this.query)
+        return this.$http.get(this.src + this.query)
       }else{
         return this.$http.get(this.src, Object.assign(queryParam, this.data))
       }
