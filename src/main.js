@@ -7,6 +7,7 @@ export default {
       query: '',
       current: -1,
       loading: false,
+      isRestful: false,
       queryParamName: 'q'
     }
   },
@@ -61,7 +62,11 @@ export default {
         [this.queryParamName]: this.query
       }
 
-      return this.$http.get(this.src, Object.assign(queryParam, this.data))
+      if(this.isRestful){
+        return this.$http.get(this.src + '/' + this.query)
+      }else{
+        return this.$http.get(this.src, Object.assign(queryParam, this.data))
+      }
     },
 
     reset () {
