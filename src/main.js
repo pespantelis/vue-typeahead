@@ -1,4 +1,4 @@
-import { util } from 'vue'
+import {util} from 'vue'
 
 export default {
   data () {
@@ -8,7 +8,7 @@ export default {
       current: -1,
       loading: false,
       isRestful: false,
-      queryParamName: 'q'
+      queryParamName: null
     }
   },
 
@@ -58,15 +58,15 @@ export default {
         return util.warn('You need to set the `src` property', this)
       }
 
-      let queryParam = {
-        [this.queryParamName]: this.query
-      }
-
-      if(this.isRestful){
+      if (this.queryParamName == null) {
         return this.$http.get(this.src + this.query)
-      }else{
+      } else {
+        let queryParam = {
+          [this.queryParamName]: this.query
+        }
         return this.$http.get(this.src, Object.assign(queryParam, this.data))
       }
+
     },
 
     reset () {
@@ -102,7 +102,7 @@ export default {
     },
 
     down () {
-      if (this.current < this.items.length-1) {
+      if (this.current < this.items.length - 1) {
         this.current++
       } else {
         this.current = -1

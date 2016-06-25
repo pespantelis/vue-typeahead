@@ -72,11 +72,8 @@ export default {
       // (optional)
       minChars: 3,
 
-      // Override the default value of 'false' in the event
-      // you are doing a URI query instead of a query string
-      isRestful: false,
-
       // Override the default value (`q`) of query parameter name
+      // ** If null, will assume you are making a restful query instead **
       // (optional)
       queryParamName: 'search'
     }
