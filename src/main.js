@@ -7,7 +7,6 @@ export default {
       query: '',
       current: -1,
       loading: false,
-      isRestful: false,
       queryParamName: null
     }
   },
