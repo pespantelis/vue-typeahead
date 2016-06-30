@@ -73,6 +73,7 @@ export default {
       minChars: 3,
 
       // Override the default value (`q`) of query parameter name
+      // ** If null, will assume you are making a restful query instead **
       // (optional)
       queryParamName: 'search'
     }
