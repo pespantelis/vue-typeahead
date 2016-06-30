@@ -59,11 +59,19 @@ var main = {
         return vue.util.warn('You need to set the `src` property', this)
       }
 
-      let queryParam = {
-        [this.queryParamName]: this.query
+      if (this.src.substr(-1) !== '/') {
+        this.src += '/'
       }
 
-      return this.$http.get(this.src, Object.assign(queryParam, this.data))
+      const src = this.queryParamName
+        ? this.src
+        : this.src + this.query
+
+      const params = this.queryParamName
+        ? Object.assign({ [this.queryParamName]: this.query }, this.data)
+        : this.data
+
+      return this.$http.get(src, params)
     },
 
     reset () {
@@ -78,7 +86,7 @@ var main = {
 
     activeClass (index) {
       return {
-        active: this.current == index
+        active: this.current === index
       }
     },
 
@@ -91,7 +99,7 @@ var main = {
     up () {
       if (this.current > 0) {
         this.current--
-      } else if (this.current == -1) {
+      } else if (this.current === -1) {
         this.current = this.items.length - 1
       } else {
         this.current = -1
@@ -99,7 +107,7 @@ var main = {
     },
 
     down () {
-      if (this.current < this.items.length-1) {
+      if (this.current < this.items.length - 1) {
         this.current++
       } else {
         this.current = -1
