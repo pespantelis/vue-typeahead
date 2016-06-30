@@ -57,14 +57,15 @@ export default {
         return util.warn('You need to set the `src` property', this)
       }
 
-      if (this.queryParamName === null) {
-        return this.$http.get(this.src + this.query)
-      } else {
-        const queryParam = {
-          [this.queryParamName]: this.query
-        }
-        return this.$http.get(this.src, Object.assign(queryParam, this.data))
-      }
+      const src = this.queryParamName
+        ? this.src
+        : this.src + this.query
+
+      const params = this.queryParamName
+        ? Object.assign({ [this.queryParamName]: this.query }, this.data)
+        : this.data
+
+      return this.$http.get(src, params)
     },
 
     reset () {
