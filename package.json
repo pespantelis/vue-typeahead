@@ -16,6 +16,7 @@
   "bugs": "https://github.com/pespantelis/vue-typeahead/issues",
   "homepage": "http://pespantelis.github.io/vue-typeahead/",
   "scripts": {
+    "lint": "eslint src demo",
     "dev": "webpack-dev-server --content-base demo/ --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dist": "rollup src/main.js -o dist/vue-typeahead.js -f cjs"
@@ -33,6 +34,8 @@
     "babel-preset-stage-2": "^6.0.0",
     "cross-env": "^1.0.6",
     "css-loader": "^0.23.0",
+    "eslint": "^2.13.1",
+    "eslint-config-vue": "^1.0.3",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.3.0",

@@ -1,0 +1,6 @@
+{
+  "extends": "vue",
+  "rules": {
+    "no-duplicate-imports": 0
+  }
+}
