@@ -8,7 +8,7 @@
     "vue",
     "typeahead"
   ],
-  "main": "dist/vue-typeahead.js",
+  "main": "dist/vue-typeahead.common.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/pespantelis/vue-typeahead.git"
@@ -19,7 +19,7 @@
     "lint": "eslint src demo",
     "dev": "webpack-dev-server --content-base demo/ --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "dist": "rollup src/main.js -o dist/vue-typeahead.js -f cjs"
+    "dist": "babel src/main.js --out-file dist/vue-typeahead.common.js"
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",
