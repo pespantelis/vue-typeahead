@@ -7,7 +7,8 @@ export default {
       query: '',
       current: -1,
       loading: false,
-      queryParamName: 'q'
+      selectFirst: false,
+      queryParamName: 'q',
     }
   },
 
@@ -44,6 +45,10 @@ export default {
           this.items = this.limit ? data.slice(0, this.limit) : data
           this.current = -1
           this.loading = false
+
+          if (this.selectFirst && this.items.length >= 1) {
+            this.down()
+          }
         }
       })
     },
