@@ -111,11 +111,13 @@ li {
 }
 
 li:first-child {
-  border-radius: 4px 4px 0 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 li:last-child {
-  border-radius: 0 0 4px 4px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   border-bottom: 0;
 }
 
