@@ -65,7 +65,11 @@ export default {
         ? Object.assign({ [this.queryParamName]: this.query }, this.data)
         : this.data
 
-      return this.$http.get(src, params)
+      const options = {
+        params: params
+      }
+
+      return this.$http.get(src, options)
     },
 
     reset () {

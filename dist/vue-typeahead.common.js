@@ -81,7 +81,9 @@ exports.default = {
 
       var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, this.query), this.data) : this.data;
 
-      return this.$http.get(src, params);
+      var options = { params: params };
+
+      return this.$http.get(src, options);
     },
     reset: function reset() {
       this.items = [];
