@@ -57,10 +57,6 @@ export default {
         return util.warn('You need to set the `src` property', this)
       }
 
-      if (this.src.substr(-1) !== '/') {
-        this.src += '/'
-      }
-
       const src = this.queryParamName
         ? this.src
         : this.src + this.query
