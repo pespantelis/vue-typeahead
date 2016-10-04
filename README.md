@@ -72,6 +72,10 @@ export default {
       // (optional)
       minChars: 3,
 
+      // If to auto select the first item in the list
+      // (optional)
+      selectFirst: false,
+      
       // Override the default value (`q`) of query parameter name
       // Use a falsy value for RESTful query
       // (optional)
