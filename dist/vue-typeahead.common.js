@@ -23,6 +23,7 @@ exports.default = {
       query: '',
       current: -1,
       loading: false,
+      selectFirst: false,
       queryParamName: 'q'
     };
   },
@@ -61,6 +62,10 @@ exports.default = {
           _this.items = _this.limit ? data.slice(0, _this.limit) : data;
           _this.current = -1;
           _this.loading = false;
+
+          if (_this.selectFirst) {
+            _this.down();
+          }
         }
       });
     },
@@ -73,17 +78,11 @@ exports.default = {
         return _vue.util.warn('You need to set the `src` property', this);
       }
 
-      if (this.src.substr(-1) !== '/') {
-        this.src += '/';
-      }
-
       var src = this.queryParamName ? this.src : this.src + this.query;
 
       var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, this.query), this.data) : this.data;
 
-      var options = { params: params };
-
-      return this.$http.get(src, options);
+      return this.$http.get(src, { params: params });
     },
     reset: function reset() {
       this.items = [];
