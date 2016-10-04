@@ -8,7 +8,7 @@ export default {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q',
+      queryParamName: 'q'
     }
   },
 
@@ -46,7 +46,7 @@ export default {
           this.current = -1
           this.loading = false
 
-          if (this.selectFirst && this.items.length >= 1) {
+          if (this.selectFirst) {
             this.down()
           }
         }
@@ -70,11 +70,7 @@ export default {
         ? Object.assign({ [this.queryParamName]: this.query }, this.data)
         : this.data
 
-      const options = {
-        params: params
-      }
-
-      return this.$http.get(src, options)
+      return this.$http.get(src, { params })
     },
 
     reset () {
