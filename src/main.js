@@ -38,22 +38,24 @@ export default {
 
       this.loading = true
 
-      this.fetch().then((response) => {
-        if (this.query) {
-          let data = response.data
-          data = this.prepareResponseData ? this.prepareResponseData(data) : data
-          this.items = this.limit ? data.slice(0, this.limit) : data
-          this.current = -1
-          this.loading = false
+      const suggestionPromise = this.fetchFunction ? this.fetchFunction(this.query) : this.fetchDefault(this.query);
 
-          if (this.selectFirst) {
-            this.down()
+      suggestionPromise
+        .then((data) => {
+          if (this.query) {
+            data = this.prepareResponseData ? this.prepareResponseData(data) : data
+            this.items = this.limit ? data.slice(0, this.limit) : data
+            this.current = -1
+            this.loading = false
+
+            if (this.selectFirst) {
+              this.down()
+            }
           }
-        }
-      })
+        })
     },
 
-    fetch () {
+    fetchDefault(query) {
       if (!this.$http) {
         return util.warn('You need to install the `vue-resource` plugin', this)
       }
@@ -64,13 +66,14 @@ export default {
 
       const src = this.queryParamName
         ? this.src
-        : this.src + this.query
+        : this.src + query
 
       const params = this.queryParamName
-        ? Object.assign({ [this.queryParamName]: this.query }, this.data)
+        ? Object.assign({ [this.queryParamName]: query }, this.data)
         : this.data
 
       return this.$http.get(src, { params })
+        .then(response => response.data)
     },
 
     reset () {
@@ -98,9 +101,11 @@ export default {
     up () {
       if (this.current > 0) {
         this.current--
-      } else if (this.current === -1) {
+      }
+      else if (this.current === -1) {
         this.current = this.items.length - 1
-      } else {
+      }
+      else {
         this.current = -1
       }
     },
@@ -108,7 +113,8 @@ export default {
     down () {
       if (this.current < this.items.length - 1) {
         this.current++
-      } else {
+      }
+      else {
         this.current = -1
       }
     },
