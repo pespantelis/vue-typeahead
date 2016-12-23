@@ -79,7 +79,14 @@ export default {
       // Override the default value (`q`) of query parameter name
       // Use a falsy value for RESTful query
       // (optional)
-      queryParamName: 'search'
+      queryParamName: 'search',
+
+      // Override the 'src' prop and rather use your own fetching function
+      // Useful for authentication, custom headers, etc...
+      // (optional)
+      fetchFunction: function(input) {
+        // Fetch the result here and return an array of items
+      }
     }
   },
 
