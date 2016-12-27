@@ -55,9 +55,10 @@ exports.default = {
 
       this.loading = true;
 
-      this.fetch().then(function (response) {
+      var suggestionPromise = this.fetchFunction ? this.fetchFunction(this.query) : this.fetchDefault(this.query);
+
+      suggestionPromise.then(function (data) {
         if (_this.query) {
-          var data = response.data;
           data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
           _this.items = _this.limit ? data.slice(0, _this.limit) : data;
           _this.current = -1;
@@ -69,7 +70,7 @@ exports.default = {
         }
       });
     },
-    fetch: function fetch() {
+    fetchDefault: function fetchDefault(query) {
       if (!this.$http) {
         return _vue.util.warn('You need to install the `vue-resource` plugin', this);
       }
@@ -78,11 +79,13 @@ exports.default = {
         return _vue.util.warn('You need to set the `src` property', this);
       }
 
-      var src = this.queryParamName ? this.src : this.src + this.query;
+      var src = this.queryParamName ? this.src : this.src + query;
 
-      var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, this.query), this.data) : this.data;
+      var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, query), this.data) : this.data;
 
-      return this.$http.get(src, { params: params });
+      return this.$http.get(src, { params: params }).then(function (response) {
+        return response.data;
+      });
     },
     reset: function reset() {
       this.items = [];
