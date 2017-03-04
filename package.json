@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "axios": "^0.15.3",
+    "babel-cli": "^6.23.0",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-plugin-transform-runtime": "^6.0.0",

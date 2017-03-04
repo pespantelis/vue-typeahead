@@ -71,7 +71,7 @@ exports.default = {
     },
     fetch: function fetch() {
       if (!this.$http) {
-        return _vue.util.warn('You need to install the `vue-resource` plugin', this);
+        return _vue.util.warn('You need to provide a HTTP client', this);
       }
 
       if (!this.src) {
