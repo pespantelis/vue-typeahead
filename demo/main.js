@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+import Axios from 'axios'
 import Typeahead from './Typeahead.vue'
 
-Vue.use(VueResource)
+Vue.prototype.$http = Axios
 
 new Vue({
   el: 'body',

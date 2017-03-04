@@ -9,7 +9,7 @@ Available through npm as `vue-typeahead`.
 ```
 npm install --save vue-typeahead
 ```
-> Also, you need to install the [`vue-resource`](https://github.com/vuejs/vue-resource) plugin.
+> Also, you need to install a HTTP client like [`axios`](https://github.com/mzabriskie/axios).
 
 ## Usage
 If you are using `vue@1.0.22+`, you could use the new [`extends`](http://vuejs.org/api/#extends) property (see below).
