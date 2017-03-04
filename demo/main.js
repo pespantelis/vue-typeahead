@@ -5,7 +5,7 @@ import Typeahead from './Typeahead.vue'
 Vue.prototype.$http = Axios
 
 new Vue({
-  el: 'body',
+  el: '#demo',
   components: {
     Typeahead
   }

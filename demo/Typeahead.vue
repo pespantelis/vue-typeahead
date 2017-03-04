@@ -19,7 +19,7 @@
            @input="update"/>
 
     <ul v-show="hasItems">
-      <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
+      <li v-for="(item, $item) in items" :class="activeClass($item)" @mousedown="hit" @mousemove="setActive($item)">
         <span class="name" v-text="item.name"></span>
         <span class="screen-name" v-text="item.screen_name"></span>
       </li>

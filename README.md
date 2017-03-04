@@ -40,7 +40,8 @@ Otherwise, the `mixins` way also works.
 
     <!-- the list -->
     <ul v-show="hasItems">
-      <li v-for="item in items" :class="activeClass($index)" @mousedown="hit" @mousemove="setActive($index)">
+      <!-- for vue@1.0 use: ($item, item) -->
+      <li v-for="(item, $item) in items" :class="activeClass($item)" @mousedown="hit" @mousemove="setActive($item)">
         <span v-text="item.name"></span>
       </li>
     </ul>

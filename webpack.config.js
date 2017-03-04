@@ -7,6 +7,11 @@ module.exports = {
     publicPath: '/build/',
     filename: 'build.js'
   },
+  resolve: {
+    alias: {
+      'vue': 'vue/dist/vue.common'
+    }
+  },
   module: {
     loaders: [
       {

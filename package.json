@@ -21,9 +21,11 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "dist": "babel src/main.js --out-file dist/vue-typeahead.common.js"
   },
+  "peerDependencies": {
+    "vue": "^1.0.21 || ^2.x.x"
+  },
   "dependencies": {
-    "babel-runtime": "^6.0.0",
-    "vue": "^1.0.21"
+    "babel-runtime": "^6.0.0"
   },
   "devDependencies": {
     "axios": "^0.15.3",
@@ -36,10 +38,12 @@
     "css-loader": "^0.23.0",
     "eslint": "^2.13.1",
     "eslint-config-vue": "^1.0.3",
+    "eslint-plugin-html": "^1.5.5",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
-    "vue-loader": "^8.3.0",
+    "vue-loader": "^11.1.4",
     "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.2.1",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0"
   }
