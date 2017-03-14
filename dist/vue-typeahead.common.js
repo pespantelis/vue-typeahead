@@ -45,7 +45,7 @@ exports.default = {
 
   methods: {
     update: function update() {
-      var _this2 = this;
+      var _this = this;
 
       if (!this.query) {
         return this.reset();
@@ -59,9 +59,9 @@ exports.default = {
       this.query_count++;
 
       this.fetch().then(function (response) {
-        if (_this2.query) {
+        if (_this.query) {
           var data = response.data;
-          data = _this2.prepareResponseData ? _this2.prepareResponseData(data) : data;
+          data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
           var to_replace = _this.src;
           if (_this.queryParamName) {
             to_replace += '?' + _this.queryParamName + '=';
@@ -76,8 +76,8 @@ exports.default = {
             _this.items = _this.limit ? data.slice(0, _this.limit) : data;
           }
 
-          if (_this2.selectFirst) {
-            _this2.down();
+          if (_this.selectFirst) {
+            _this.down();
           }
         }
       });
