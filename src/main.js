@@ -7,6 +7,8 @@ export default {
       query: '',
       current: -1,
       loading: false,
+      query_count: 0,
+      query_results: {},
       selectFirst: false,
       queryParamName: 'q'
     }
@@ -37,14 +39,25 @@ export default {
       }
 
       this.loading = true
+      this.query_count++
 
       this.fetch().then((response) => {
         if (this.query) {
           let data = response.data
           data = this.prepareResponseData ? this.prepareResponseData(data) : data
-          this.items = this.limit ? data.slice(0, this.limit) : data
-          this.current = -1
-          this.loading = false
+          let to_replace = _this.src
+          if (_this.queryParamName) {
+            to_replace += '?' + _this.queryParamName + '='
+          }
+          let search_string = decodeURIComponent(response.url.replace(to_replace, '').replace(/\+/g, '%20'))
+          _this.query_results[search_string] = data
+          _this.query_count--
+          _this.current = -1
+          _this.loading = false
+          if (_this.query_count <= 0) {
+            data = _this.query_results[_this.query]
+            _this.items = _this.limit ? data.slice(0, _this.limit) : data
+          }
 
           if (this.selectFirst) {
             this.down()
@@ -75,6 +88,8 @@ export default {
 
     reset () {
       this.items = []
+      this.query_results = {}
+      this.query_count = 0
       this.query = ''
       this.loading = false
     },
