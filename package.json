@@ -1,6 +1,6 @@
 {
   "name": "vue-typeahead",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "author": "Pantelis Peslis <pespantelis@gmail.com>",
   "license": "MIT",
   "description": "Typeahead component for Vue.js",
