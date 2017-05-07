@@ -28,6 +28,8 @@ export default {
 
   methods: {
     update () {
+      this.cancel()
+
       if (!this.query) {
         return this.reset()
       }
@@ -39,7 +41,7 @@ export default {
       this.loading = true
 
       this.fetch().then((response) => {
-        if (this.query) {
+        if (response && this.query) {
           let data = response.data
           data = this.prepareResponseData ? this.prepareResponseData(data) : data
           this.items = this.limit ? data.slice(0, this.limit) : data
@@ -70,7 +72,14 @@ export default {
         ? Object.assign({ [this.queryParamName]: this.query }, this.data)
         : this.data
 
-      return this.$http.get(src, { params })
+      let cancel = new Promise((resolve) => this.cancel = resolve)
+      let request = this.$http.get(src, { params })
+
+      return Promise.race([cancel, request])
+    },
+
+    cancel () {
+      // used to 'cancel' previous searches
     },
 
     reset () {
