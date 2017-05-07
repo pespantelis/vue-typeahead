@@ -27,6 +27,8 @@ exports.default = {
       query: '',
       current: -1,
       loading: false,
+      query_count: 0,
+      query_results: {},
       selectFirst: false,
       queryParamName: 'q'
     };
@@ -60,14 +62,25 @@ exports.default = {
       }
 
       this.loading = true;
+      this.query_count++;
 
       this.fetch().then(function (response) {
         if (response && _this.query) {
           var data = response.data;
           data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
-          _this.items = _this.limit ? data.slice(0, _this.limit) : data;
+          var to_replace = _this.src;
+          if (_this.queryParamName) {
+            to_replace += '?' + _this.queryParamName + '=';
+          }
+          var search_string = decodeURIComponent(response.url.replace(to_replace, '').replace(/\+/g, '%20'));
+          _this.query_results[search_string] = data;
+          _this.query_count--;
           _this.current = -1;
           _this.loading = false;
+          if (_this.query_count <= 0) {
+            data = _this.query_results[_this.query];
+            _this.items = _this.limit ? data.slice(0, _this.limit) : data;
+          }
 
           if (_this.selectFirst) {
             _this.down();
@@ -100,6 +113,8 @@ exports.default = {
     cancel: function cancel() {},
     reset: function reset() {
       this.items = [];
+      this.query_results = {};
+      this.query_count = 0;
       this.query = '';
       this.loading = false;
     },
