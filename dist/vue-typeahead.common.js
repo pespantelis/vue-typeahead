@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -45,6 +49,8 @@ exports.default = {
     update: function update() {
       var _this = this;
 
+      this.cancel();
+
       if (!this.query) {
         return this.reset();
       }
@@ -56,7 +62,7 @@ exports.default = {
       this.loading = true;
 
       this.fetch().then(function (response) {
-        if (_this.query) {
+        if (response && _this.query) {
           var data = response.data;
           data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
           _this.items = _this.limit ? data.slice(0, _this.limit) : data;
@@ -70,6 +76,8 @@ exports.default = {
       });
     },
     fetch: function fetch() {
+      var _this2 = this;
+
       if (!this.$http) {
         return _vue.util.warn('You need to provide a HTTP client', this);
       }
@@ -82,8 +90,14 @@ exports.default = {
 
       var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, this.query), this.data) : this.data;
 
-      return this.$http.get(src, { params: params });
+      var cancel = new _promise2.default(function (resolve) {
+        return _this2.cancel = resolve;
+      });
+      var request = this.$http.get(src, { params: params });
+
+      return _promise2.default.race([cancel, request]);
     },
+    cancel: function cancel() {},
     reset: function reset() {
       this.items = [];
       this.query = '';
