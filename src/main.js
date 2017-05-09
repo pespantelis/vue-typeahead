@@ -17,6 +17,10 @@ export default {
       return this.items.length > 0
     },
 
+    noItems () {
+      return this.items.length == 0 && this.query.length >= this.minChars && this.loading == false && this.current == -1
+    },
+
     isEmpty () {
       return !this.query
     },
