@@ -37,6 +37,9 @@ exports.default = {
     hasItems: function hasItems() {
       return this.items.length > 0;
     },
+    noItems: function noItems() {
+      return this.items.length == 0 && this.query.length >= this.minChars && this.loading == false && this.current == -1; 
+    },
     isEmpty: function isEmpty() {
       return !this.query;
     },
