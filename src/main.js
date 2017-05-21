@@ -84,6 +84,7 @@ export default {
 
     reset () {
       this.items = []
+      this.current = -1
       this.query = ''
       this.loading = false
     },
