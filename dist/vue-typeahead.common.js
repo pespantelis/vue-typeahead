@@ -23,6 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   data: function data() {
     return {
+	  queries: [],
       items: [],
       query: '',
       current: -1,
@@ -60,21 +61,35 @@ exports.default = {
       }
 
       this.loading = true;
+      
+      this.queries.push(this.query);
 
-      this.fetch().then(function (response) {
-        if (response && _this.query) {
-          var data = response.data;
-          data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
-          _this.items = _this.limit ? data.slice(0, _this.limit) : data;
-          _this.current = -1;
-          _this.loading = false;
+      setTimeout(function(_this2) {
+		var param = _this2.queries.shift();
+        if (_this2.queries.length == 0)
+			_this2.callFetch()
+      }, 1000, this);
 
-          if (_this.selectFirst) {
-            _this.down();
-          }
-        }
-      });
     },
+    
+    callFetch: function callFetch(){
+        var _this = this;
+
+        this.fetch().then(function (response) {
+            if (response && _this.query) {
+                var data = response.data;
+                data = _this.prepareResponseData ? _this.prepareResponseData(data) : data;
+                _this.items = _this.limit ? data.slice(0, _this.limit) : data;
+                _this.current = -1;
+                _this.loading = false;
+
+                if (_this.selectFirst) {
+                    _this.down();
+                }
+            }
+        });
+    },
+    
     fetch: function fetch() {
       var _this2 = this;
 
