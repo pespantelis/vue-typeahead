@@ -35,7 +35,6 @@ Otherwise, the `mixins` way also works.
            @keydown.up="up"
            @keydown.enter="hit"
            @keydown.esc="reset"
-           @blur="reset"
            @input="update"/>
 
     <!-- the list -->
@@ -97,7 +96,25 @@ export default {
       // data = ...
       return data
     }
-  }
+    
+    // Check that the click event location was outside of $el. I.e this template
+    leave (e) {
+      // This checks to make sure that the click was on something other than this template it, input or ul.
+      if (!this.$el.contains(e.target)) {
+        this.reset;
+      }
+    },
+  },
+  
+  mounted: function () {
+   // Add the event listener to the document on mount
+   document.addEventListener('click', this.leave, false);
+  },
+  
+  destroyed: function () {
+  // Remove the event listener before being distroyed to prevent bubble up
+   document.removeEventListener('click', this.leave, false);
+  },
 }
 </script>
 
