@@ -52,6 +52,11 @@ export default {
             this.down()
           }
         }
+      }).catch((error) => {
+        if (this.handleError) {
+          this.handleError(error)
+        }
+        this.loading = false
       })
     },
 
