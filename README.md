@@ -9,9 +9,16 @@ Available through npm as `vue-typeahead`.
 ```
 npm install --save vue-typeahead
 ```
-> Also, you need to install a HTTP client like [`axios`](https://github.com/mzabriskie/axios).
+> Also, you need to install and register an HTTP client like [`axios`](https://github.com/mzabriskie/axios).
 
 ## Usage
+
+Register your HTTP client (for example, axios) with Vue.
+```
+import Axios from 'axios'
+Vue.prototype.$http = Axios
+```
+
 If you are using `vue@1.0.22+`, you could use the new [`extends`](http://vuejs.org/api/#extends) property (see below).
 
 Otherwise, the `mixins` way also works.
