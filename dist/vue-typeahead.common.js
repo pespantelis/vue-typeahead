@@ -23,6 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   data: function data() {
     return {
+      error: null,
       items: [],
       query: '',
       current: -1,
@@ -59,6 +60,7 @@ exports.default = {
         return;
       }
 
+      this.error = null;
       this.loading = true;
 
       this.fetch().then(function (response) {
@@ -73,6 +75,8 @@ exports.default = {
             _this.down();
           }
         }
+      }).catch(function (err) {
+        _this.error = err;
       });
     },
     fetch: function fetch() {
@@ -99,6 +103,7 @@ exports.default = {
     },
     cancel: function cancel() {},
     reset: function reset() {
+      this.error = null;
       this.items = [];
       this.query = '';
       this.loading = false;
