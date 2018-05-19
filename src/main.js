@@ -3,6 +3,7 @@ import { util } from 'vue'
 export default {
   data () {
     return {
+      error: null,
       items: [],
       query: '',
       current: -1,
@@ -38,9 +39,10 @@ export default {
         return
       }
 
+      this.error = null
       this.loading = true
 
-      this.fetch().then((response) => {
+      this.fetch().then(response => {
         if (response && this.query) {
           let data = response.data
           data = this.prepareResponseData ? this.prepareResponseData(data) : data
@@ -52,6 +54,8 @@ export default {
             this.down()
           }
         }
+      }).catch(err => {
+        this.error = err
       })
     },
 
@@ -83,6 +87,7 @@ export default {
     },
 
     reset () {
+      this.error = null
       this.items = []
       this.query = ''
       this.loading = false

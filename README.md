@@ -118,6 +118,8 @@ export default {
 **Escape:** Hide the list.
 
 ## States
+**error:** Indicates if an error what thrown and what it was when fetching data.
+
 **loading:** Indicates that awaits the data.
 
 **isEmpty:** Indicates that the input is empty.
