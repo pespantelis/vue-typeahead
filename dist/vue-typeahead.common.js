@@ -28,7 +28,8 @@ exports.default = {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
+      isReady: false
     };
   },
 
@@ -50,6 +51,10 @@ exports.default = {
       var _this = this;
 
       this.cancel();
+
+      if (this.isReady) {
+        return;
+      }
 
       if (!this.query) {
         return this.reset();
@@ -91,7 +96,8 @@ exports.default = {
       var params = this.queryParamName ? (0, _assign2.default)((0, _defineProperty3.default)({}, this.queryParamName, this.query), this.data) : this.data;
 
       var cancel = new _promise2.default(function (resolve) {
-        return _this2.cancel = resolve;
+        _this2.cancel = resolve;
+        return _this2.cancel;
       });
       var request = this.$http.get(src, { params: params });
 
