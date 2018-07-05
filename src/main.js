@@ -8,7 +8,8 @@ export default {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
+      isReady: false
     }
   },
 
@@ -29,6 +30,10 @@ export default {
   methods: {
     update () {
       this.cancel()
+
+      if (this.isReady) {
+        return
+      }
 
       if (!this.query) {
         return this.reset()
