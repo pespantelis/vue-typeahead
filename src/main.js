@@ -8,7 +8,7 @@ export default {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
     }
   },
 
@@ -30,7 +30,7 @@ export default {
     update () {
       this.cancel()
 
-      if (!this.query) {
+      if (!this.query && this.minChars > 0) {
         return this.reset()
       }
 
@@ -41,7 +41,7 @@ export default {
       this.loading = true
 
       this.fetch().then((response) => {
-        if (response && this.query) {
+        if (response && (this.query || this.minChars == 0)) {
           let data = response.data
           data = this.prepareResponseData ? this.prepareResponseData(data) : data
           this.items = this.limit ? data.slice(0, this.limit) : data
