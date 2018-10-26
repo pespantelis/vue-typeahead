@@ -1,4 +1,5 @@
 import { util } from 'vue'
+import debounce from 'debounce'
 
 export default {
   data () {
@@ -8,7 +9,8 @@ export default {
       current: -1,
       loading: false,
       selectFirst: false,
-      queryParamName: 'q'
+      queryParamName: 'q',
+      requestDebounce: false
     }
   },
 
@@ -23,6 +25,12 @@ export default {
 
     isDirty () {
       return !!this.query
+    }
+  },
+
+  mounted () {
+    if (this.requestDebounce) {
+      this.update = debounce(this.update, this.requestDebounce)
     }
   },
 
