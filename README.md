@@ -80,7 +80,11 @@ export default {
       // Override the default value (`q`) of query parameter name
       // Use a falsy value for RESTful query
       // (optional)
-      queryParamName: 'search'
+      queryParamName: 'search',
+
+      // Debounce the request so it only executes after the specified milliseconds
+      // (optional)
+      requestDebounce: 300
     }
   },
 
