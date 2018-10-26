@@ -39,7 +39,8 @@ export default {
     return {
       src: 'https://typeahead-js-twitter-api-proxy.herokuapp.com/demo/search',
       limit: 5,
-      minChars: 3
+      minChars: 3,
+      requestDebounce: 300
     }
   },
 
