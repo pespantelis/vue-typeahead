@@ -40,19 +40,23 @@ export default {
 
       this.loading = true
 
-      this.fetch().then((response) => {
-        if (response && this.query) {
-          let data = response.data
-          data = this.prepareResponseData ? this.prepareResponseData(data) : data
-          this.items = this.limit ? data.slice(0, this.limit) : data
-          this.current = -1
-          this.loading = false
+      this.fetch()
+        .then((response) => {
+          if (response && this.query) {
+            let data = response.data
+            data = this.prepareResponseData ? this.prepareResponseData(data) : data
+            this.items = this.limit ? data.slice(0, this.limit) : data
+            this.current = -1
+            this.loading = false
 
-          if (this.selectFirst) {
-            this.down()
+            if (this.selectFirst) {
+              this.down()
+            }
           }
-        }
-      })
+        })
+        .catch((error) => {
+          this.onError(error);
+        })
     },
 
     fetch () {
@@ -124,6 +128,9 @@ export default {
 
     onHit () {
       util.warn('You need to implement the `onHit` method', this)
+    },
+
+    onError() {
     }
   }
 }
