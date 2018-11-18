@@ -55,6 +55,7 @@ export default {
           }
         })
         .catch((error) => {
+          this.loading = false;
           this.onError(error);
         })
     },
